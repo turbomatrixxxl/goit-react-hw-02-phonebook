@@ -60,10 +60,9 @@ export default class ContactBook extends Component {
       return contact.name === value;
     });
     if (isExist) {
-      console.log('true');
+      // console.log('true');
       alert(`${value} este deja in contacte.`);
       this.setState({ ...this.state, [name]: '', disabled: true });
-      e.target.reset();
     }
   };
 
@@ -77,14 +76,14 @@ export default class ContactBook extends Component {
     }
 
     if (value.length === 0) {
-      console.log('hey');
+      // console.log('hey');
 
       this.setState({ ...this.state, [name]: '' });
     }
   };
 
   handleRemove = id => {
-    console.log(id);
+    // console.log(id);
     const filtered = this.state.contacts.filter(contact => contact.id !== id);
     return this.setState({ ...this.state, contacts: [...filtered] });
   };
