@@ -18,3 +18,13 @@
 .button:valid {
   background-color: green;
 }
+
+.delete {
+  background-color: brown;
+  font-size: 12px;
+  padding: 4px 6px;
+}
+
+.delete:hover {
+  background-color: green;
+}

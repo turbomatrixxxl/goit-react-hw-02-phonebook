@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import styles from './RenderContacts.module.css';
 
-function RenderContacts({ contacts }) {
+function RenderContacts({ contacts, children }) {
   return (
     <section>
       <h2>Contacts</h2>
@@ -11,9 +11,11 @@ function RenderContacts({ contacts }) {
         {contacts.map((contact, index) => {
           return (
             <li className={styles.contactItem} key={index}>
+              <span></span>
               <b>
                 {contact.name} : {contact.number}
               </b>
+              {children}
             </li>
           );
         })}

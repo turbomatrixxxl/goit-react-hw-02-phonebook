@@ -50,8 +50,18 @@ export default class ContactBook extends Component {
     }
 
     if (value.length === 0) {
-      console.log('hey');
+      // console.log('hey');
 
+      this.setState({ ...this.state, [name]: '', disabled: true });
+    }
+
+    const isExist = this.state.contacts.find(contact => {
+      console.log(contact.name === value);
+      return contact.name === value;
+    });
+    if (isExist) {
+      console.log('true');
+      alert(`${value} este deja in contacte.`);
       this.setState({ ...this.state, [name]: '', disabled: true });
     }
   };
@@ -70,6 +80,10 @@ export default class ContactBook extends Component {
 
       this.setState({ ...this.state, [name]: '' });
     }
+  };
+
+  handleClick = ev => {
+    console.log(ev.currentTarget);
   };
 
   render() {
@@ -122,12 +136,23 @@ export default class ContactBook extends Component {
           required={false}
           handleChange={this.handleSearchChange}
         />
-        {contacts.length > 0 && searchTherm.length === 0 && (
+        {/* {contacts.length > 0 && searchTherm.length === 0 && (
           <RenderContacts contacts={contacts} />
         )}
         {contacts.length > 0 && searchTherm.length > 0 && (
           <RenderContacts contacts={getContactsByName} />
-        )}
+        )} */}
+        <RenderContacts contacts={getContactsByName}>
+          <Button
+            key="12"
+            variant={true}
+            type="button"
+            disabled={false}
+            handleClick={this.handleClick}
+          >
+            Delete
+          </Button>
+        </RenderContacts>
       </section>
     );
   }
