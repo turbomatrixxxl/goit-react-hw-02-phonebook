@@ -4,7 +4,7 @@ import Input from 'components/common/input';
 import Button from 'components/common/button';
 
 import styles from './ContactBook.module.css';
-import RenderContacts from 'components/renderContacts';
+// import RenderContacts from 'components/renderContacts';
 
 export default class ContactBook extends Component {
   state = {
@@ -43,16 +43,16 @@ export default class ContactBook extends Component {
   handleChange = e => {
     const { name, value } = e.target;
 
-    if (value.length > 0) {
-      // console.log('hey');
-
-      this.setState({ ...this.state, [name]: value, disabled: false });
-    }
-
     if (value.length === 0) {
       // console.log('hey');
 
       this.setState({ ...this.state, [name]: '', disabled: true });
+    }
+
+    if (value.length > 0) {
+      // console.log('hey');
+
+      this.setState({ ...this.state, [name]: value, disabled: false });
     }
 
     const isExist = this.state.contacts.find(contact => {
@@ -63,6 +63,7 @@ export default class ContactBook extends Component {
       console.log('true');
       alert(`${value} este deja in contacte.`);
       this.setState({ ...this.state, [name]: '', disabled: true });
+      e.target.reset();
     }
   };
 
@@ -82,12 +83,14 @@ export default class ContactBook extends Component {
     }
   };
 
-  handleClick = ev => {
-    console.log(ev.currentTarget);
+  handleRemove = id => {
+    console.log(id);
+    const filtered = this.state.contacts.filter(contact => contact.id !== id);
+    return this.setState({ ...this.state, contacts: [...filtered] });
   };
 
   render() {
-    console.log(this.state);
+    // console.log(this.state);
     const contacts = this.state.contacts;
     const searchTherm = this.state.searchTherm;
     const getContactsByName = contacts.filter(contact => {
@@ -136,23 +139,32 @@ export default class ContactBook extends Component {
           required={false}
           handleChange={this.handleSearchChange}
         />
-        {/* {contacts.length > 0 && searchTherm.length === 0 && (
-          <RenderContacts contacts={contacts} />
-        )}
-        {contacts.length > 0 && searchTherm.length > 0 && (
-          <RenderContacts contacts={getContactsByName} />
-        )} */}
-        <RenderContacts contacts={getContactsByName}>
-          <Button
-            key="12"
-            variant={true}
-            type="button"
-            disabled={false}
-            handleClick={this.handleClick}
-          >
-            Delete
-          </Button>
-        </RenderContacts>
+        <h2>Contacts</h2>
+        <ul className={styles.contactList}>
+          {getContactsByName.map(contact => {
+            return (
+              <li className={styles.contactItem} key={contact.id}>
+                <span className={styles.span}></span>
+                <span>
+                  <b>{contact.name} :</b>
+                </span>
+                <span>
+                  <b>{contact.number}</b>
+                </span>
+                <Button
+                  variant={true}
+                  type="button"
+                  disabled={false}
+                  handleClick={() => {
+                    this.handleRemove(contact.id);
+                  }}
+                >
+                  Delete
+                </Button>
+              </li>
+            );
+          })}
+        </ul>
       </section>
     );
   }

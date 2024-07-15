@@ -5,12 +5,12 @@ import styles from './RenderContacts.module.css';
 
 function RenderContacts({ contacts, children }) {
   return (
-    <section>
+    <div>
       <h2>Contacts</h2>
       <ul className={styles.contactList}>
-        {contacts.map((contact, index) => {
+        {contacts.map(contact => {
           return (
-            <li className={styles.contactItem} key={index}>
+            <li className={styles.contactItem} key={contact.id}>
               <span></span>
               <b>
                 {contact.name} : {contact.number}
@@ -20,7 +20,7 @@ function RenderContacts({ contacts, children }) {
           );
         })}
       </ul>
-    </section>
+    </div>
   );
 }
 
